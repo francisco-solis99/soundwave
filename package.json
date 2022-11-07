@@ -2,8 +2,9 @@
   "name": "soundwave",
   "version": "1.0.0",
   "description": "A web application where you can see the musical tops of different eras and you can create your own tops",
-  "main": "index.js",
+  "main": ".src/app.js",
   "scripts": {
+    "start": "node ./src/app.js",
     "dev": "nodemon ./src/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
