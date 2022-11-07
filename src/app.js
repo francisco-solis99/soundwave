@@ -1,9 +1,9 @@
-const express = require('express')
-const app = express()
+const express = require('express');
+const app = express();
 
 // Midlewares
-app.use(express.urlencoded({ extended: true }))
-app.use(express.json())
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 
 app.get('/', (req, res) => {
