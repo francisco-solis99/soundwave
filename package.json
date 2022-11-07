@@ -1,0 +1,30 @@
+{
+  "name": "soundwave",
+  "version": "1.0.0",
+  "description": "A web application where you can see the musical tops of different eras and you can create your own tops",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon ./src/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/francisco-solis99/soundwave.git"
+  },
+  "keywords": [],
+  "author": "Francisco Solis, Maribel Melendez, Alma Lovera, Marcela Contreras",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/francisco-solis99/soundwave/issues"
+  },
+  "homepage": "https://github.com/francisco-solis99/soundwave#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.20",
+    "sequelize-cli": "^6.5.2"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "mysql2": "^3.0.0-rc.1",
+    "sequelize": "^6.25.4"
+  }
+}
