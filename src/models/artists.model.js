@@ -1,6 +1,7 @@
 const { DataTypes } = require('sequelize')
 
 const Artist = (sequelize) => sequelize.define('Artist', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -12,12 +13,23 @@ const Artist = (sequelize) => sequelize.define('Artist', {
     },
     ytchannel: {
         type: DataTypes.STRING,
-        allowNull: false,
         unique: true,
         validate: {
             isUrl: true
         }
-    }
+    },
+    createdAt: DataTypes.DATE,
+    updatedAt: DataTypes.DATE
+}, {
+    hooks: {
+        beforeCreate: function (artist, options) {
+            artist.createdAt = new Date();
+            artist.updatedAt = new Date();
+        },
+        beforeUpdate: function(artist, options) {
+            artist.updatedAt = new Date();
+        },
+    },
 })
 
 module.exports = Artist
