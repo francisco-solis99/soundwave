@@ -20,10 +20,4 @@ const Song = (sequelize) => sequelize.define('Song', {
     }
 })
 
-Song.hasOne(Genre);
-Genre.belongsTo(Song);
-
-Song.hasOne(Artist);
-Artist.belongsTo(Song);
-
 module.exports = Song

@@ -1,4 +1,5 @@
 const { DataTypes } = require('sequelize')
+const Song = require('./songs.models')
 
 const Genre = (sequelize) => sequelize.define('Genre', {
     name: {
@@ -7,5 +8,8 @@ const Genre = (sequelize) => sequelize.define('Genre', {
         unique: true
     }
 })
+
+Genre.hasMany(Song);
+Song.belongsTo(Genre);
 
 module.exports = Genre
