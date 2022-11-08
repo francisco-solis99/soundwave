@@ -1,15 +1,15 @@
-const Artist = require('../models/artists.model')
+const sequelize = require('../config/db');
 
 async function createArtist(req, res) {
     const body = req.body
-    return await Artist.create(body)
+    return await sequelize.models.artists.create(body)
         .then(artist => res.status(201).json(artist))
         .catch(err => res.status(404).json({ message: 'Error', data: err }))
 }
 
 async function getArtistById(req, res) {
     const id = req.params.id
-    const artist = await Artist.findByPk(id)
+    const artist = await sequelize.models.artists.findByPk(id)
     if (!artist) {
         return res.status(404).json({ message: 'Artist not found' })
     }
@@ -17,7 +17,7 @@ async function getArtistById(req, res) {
 }
 
 async function getAllArtists(req, res) {
-    return await Artist.findAll()
+    return await sequelize.models.artists.findAndCountAll()
         .then(artists => res.status(200).json(artists))
         .catch(err => res.status(404).json({ message: 'Error', data: err }))
 }
@@ -25,14 +25,14 @@ async function getAllArtists(req, res) {
 async function updateArtist(req, res) {
     const id = req.params.id
     const artist = req.body
-    await Artist.update(artist, { where: { id } })
-        .then(artist => res.status(200).json(artist))
+    return await sequelize.models.artists.update(artist, { where: { id } })
+        .then((artist) =>  res.status(200).json(artist))
         .catch(err => res.status(404).json({ message: 'Error', data: err }))
 }
 
 async function deleteArtist(req, res) {
     const id = req.params.id
-    const deleted_artist = await Artist.destroy({ where: { id } })
+    const deleted_artist = await sequelize.models.artists.destroy({ where: { id } })
     if (!deleted_artist) {
         return res.status(404).json({ message: 'Artist not found' })
     }
@@ -45,4 +45,4 @@ module.exports = {
     getAllArtists,
     updateArtist,
     deleteArtist
-}
+};
