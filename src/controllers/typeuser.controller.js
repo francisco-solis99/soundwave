@@ -1,52 +1,42 @@
 const TypeUser = require('../models/typeuser.model')
 
 async function getTypeUsers (req, res)  {
-    return await sequelize.models.users.findAndCountAll()
+    return await sequelize.models.typeusers.findAndCountAll()
       .then(data => res.json(data))
       .catch(err => res.json({ message: 'Error', data: err }))
   };
   
 async function createTypeUser (req, res)  {
       const { body } = req;
-      const user = await sequelize.models.users.create({
-          name: body.name,
-          surname: body.surname,
-          nickName: body.nickName,
-          email: body.email,
-          typeuserId: body.typeuserId,
-          password: body.password
-  
+      const user = await sequelize.models.typeusers.create({
+          name: body.name  
       });
       await user.save();
-      return res.status(201).json({ data: User });
+      return res.status(201).json({ data: TypeUser });
     };
     
-async function updateUser (req, res)  {
+async function updateTypeUser(req, res)  {
       const { body, params: { id } } = req;
-      const review = await sequelize.models.users.findByPk(id);
+      const review = await sequelize.models.typeusers.findByPk(id);
       if (!review) {
-        return res.status(404).json({ code: 404, message: 'User not found' });
+        return res.status(404).json({ code: 404, message: 'Type user not found' });
       }
-      const updateUser = await User.update({
+      const updateTypeUser = await TypeUser.update({
           name: body.name,
-          surname: body.surname,
-          nickName: body.nickName,
-          email: body.email,
-          password: body.password,
-          userId: body.userId,
+          typeuserId: body.typeuserId,
       });
-      return res.json({ data: updateUser });
+      return res.json({ data: updateTypeUser });
     };
     
- async function deleteUser (req, res)  {
+ async function deleteTypeUser (req, res)  {
       const { params: { id } } = req;
-      const user = await sequelize.models.users.findByPk(id);
+      const typeuser = await sequelize.models.typeusers.findByPk(id);
       if (!review) {
-        return res.status(404).json({ code: 404, message: 'User not found' });
+        return res.status(404).json({ code: 404, message: 'Type user not found' });
       }
-      await user.destroy();
+      await typeuser.destroy();
       return res.json();
     };
     
-    module.exports = {getUsers, createUser,updateUser, deleteUser};
+    module.exports = {getTypeUsers, createTypeUser,updateTypeUser, deleteTypeUser};
   
