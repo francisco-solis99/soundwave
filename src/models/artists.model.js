@@ -1,17 +1,18 @@
-const { Sequelize, DataTypes } = require('sequelize');
-const sequelize = new Sequelize('sqlite://db.sqlite');
+const { DataTypes } = require('sequelize')
+const sequelize = require('../config/db')
 
 const Artist = sequelize.define('Artist', {
     name: {
-        type: DataTypes.TEXT,
-        allowNull: false
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true
     },
     country: {
-        type: DataTypes.TEXT,
+        type: DataTypes.STRING,
         allowNull: false
     },
     ytchannel: {
-        type: DataTypes.TEXT,
+        type: DataTypes.STRING,
         allowNull: false,
         unique: true,
         validate: {
@@ -20,4 +21,4 @@ const Artist = sequelize.define('Artist', {
     }
 })
 
-module.exports = Artist;
+module.exports = Artist
