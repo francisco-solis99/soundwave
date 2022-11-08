@@ -2,7 +2,11 @@ const { DataTypes } = require('sequelize')
 
 
 const Artists = (sequelize) => sequelize.define('artists', {
-    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
     name: {
         type: DataTypes.STRING,
         allowNull: false,

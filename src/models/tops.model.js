@@ -1,7 +1,11 @@
 const { DataTypes } = require('sequelize');
 
 const Tops = (sequelize) => sequelize.define('tops', {
-    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
     name: {
         type: DataTypes.STRING,
         allowNull: false,
