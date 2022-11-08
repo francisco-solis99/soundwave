@@ -15,13 +15,13 @@ app.get('/', (req, res) => {
 app.use('/api', routes);
 
 // Just to try the connection
-try {
-  sequelize.authenticate();
-  sequelize.sync();
-  console.log('Connected to DB');
-} catch (error) {
-  console.log('Unable to connect to DB: ', error);
-}
+// try {
+//   sequelize.authenticate();
+//   sequelize.sync();
+//   console.log('Connected to DB');
+// } catch (error) {
+//   console.log('Unable to connect to DB: ', error);
+// }
 const PORT = 4000;
 app.listen(PORT, () => {
   console.log('Listening on port ' + PORT);

@@ -1,6 +1,7 @@
 const { DataTypes } = require('sequelize')
 
-const Genre = (sequelize) => sequelize.define('Genre', {
+
+const Genre = (sequelize) => sequelize.define('genres', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name: {
         type: DataTypes.STRING,
@@ -20,5 +21,7 @@ const Genre = (sequelize) => sequelize.define('Genre', {
         },
     },
 })
+
+
 
 module.exports = Genre
