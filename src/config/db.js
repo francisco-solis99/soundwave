@@ -15,11 +15,10 @@ const sequelize = new Sequelize('soundwave', 'root', 'root',
 );
 
 // Add models
-const models = [ topsModel, songsModel, genresModel, artistsModel ];
+const models = [ topsModel, songsModel, genresModel, artistsModel ]
 
-for(let model of models) {
+for(let model of models)
   model(sequelize)
-}
 
 // // Relations
 const { tops, songs, artists, genres } = sequelize.models;
