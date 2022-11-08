@@ -11,7 +11,7 @@ app.get('/', (req, res) => {
   res.send({ message: 'Welcome to SoundWave API' });
 })
 
-app.get('/api', routes);
+app.use('/api', routes);
 
 
 const PORT = 4000;
