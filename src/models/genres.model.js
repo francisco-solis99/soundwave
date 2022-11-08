@@ -1,11 +1,10 @@
-const { Sequelize, DataTypes } = require('sequelize')
-const sequelize = new Sequelize('sqlite://db.sqlite')
+const { DataTypes } = require('sequelize')
 
-const Genre = sequelize.define('Sequelize', {
+const Genre = (sequelize) => sequelize.define('Sequelize', {
     name: {
-        type: DataTypes.TEXT,
+        type: DataTypes.STRING,
         allowNull: false,
-        unique: true,
+        unique: true
     }
 })
 
