@@ -1,10 +1,6 @@
 const { Sequelize } = require('sequelize');
 
-<<<<<<< HEAD
 const topSongsModel = require('../models/top-songs.model');
-=======
-const topSongsModel = require('../models//top-songs.model');
->>>>>>> 8c9efe528acebe9fc9a4fb1525829b93145eb440
 const topsModel = require('../models/tops.model');
 const songsModel = require('../models/songs.models');
 const genresModel = require('../models/genres.model');
