@@ -8,12 +8,12 @@ async function createGenre(req, res) {
 }
 
 async function getGenreById(req, res) {
-    const id = req.params.id;
-    const genre = await Genre.findByPk(id);
+    const id = req.params.id
+    const genre = await Genre.findByPk(id)
     if (!genre) {
         return res.status(404).json({ message: 'Genre not found' })
     }
-    return res.status(200).json(genre);
+    return res.status(200).json(genre)
 }
 
 async function getAllGenres(req, res) {
@@ -23,20 +23,20 @@ async function getAllGenres(req, res) {
 }
 
 async function updateGenre(req, res) {
-    const id = req.params.id;
-    const genre = req.body;
+    const id = req.params.id
+    const genre = req.body
     await Genre.update(genre, { where: { id } })
         .then(genre => res.status(200).json(genre))
         .catch(err => res.status(404).json({ message: 'Error', data: err }))
 }
 
 async function deleteGenre(req, res) {
-    const id = req.params.id;
-    const deleted_genre = await Genre.destroy({ where: { id } });
+    const id = req.params.id
+    const deleted_genre = await Genre.destroy({ where: { id } })
     if (!deleted_genre) {
         return res.status(404).json({ message: 'Genre not found' })
     }
-    return res.status(200).json(deleted_genre);
+    return res.status(200).json(deleted_genre)
 }
 
 module.exports = {
