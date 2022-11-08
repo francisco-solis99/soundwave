@@ -4,6 +4,7 @@ const { DataTypes, Sequelize} = require('sequelize');
 module.exports = (sequelize) => sequelize.define('tops', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true}, 
     name: DataTypes.STRING,
+    description: DataTypes.TEXT,
     createdAt: DataTypes.DATE,
     updatedAt: DataTypes.DATE
 }, {
