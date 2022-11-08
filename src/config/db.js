@@ -1,5 +1,6 @@
 const { Sequelize } = require('sequelize');
 
+const topSongsModel = require('../models//top-songs.model');
 const topsModel = require('../models/tops.model');
 const songsModel = require('../models/songs.models');
 const genresModel = require('../models/genres.model');
@@ -15,13 +16,13 @@ const sequelize = new Sequelize('soundwave', 'root', 'root',
 );
 
 // Add models
-const models = [ topsModel, songsModel, genresModel, artistsModel ]
+const models = [ topSongsModel, topsModel, songsModel, genresModel, artistsModel ]
 
 for(let model of models)
   model(sequelize)
 
 // // Relations
-const { tops, songs, artists, genres } = sequelize.models;
+const { tops, songs, artists, genres, topSongs} = sequelize.models;
 
 // // Artists - Songs
 // artists.hasMany(songs);
@@ -35,4 +36,4 @@ const { tops, songs, artists, genres } = sequelize.models;
 // tops.belongsToMany(songs,{ through: topSongs });
 // songs.belongsToMany(tops,{ through: topSongs });
 
-module.exports = sequelize
+module.exports = sequelize;
