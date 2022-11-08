@@ -8,12 +8,12 @@ module.exports = (sequelize) => sequelize.define('typeofuser', {
 },
 {
   hooks: {
-    beforeCreate: function (order, options) {
-      order.createdAt = new Date();
-      order.updatedAt = new Date();
+    beforeCreate: function (typeusers, options) {
+      typeusers.createdAt = new Date();
+      typeusers.updatedAt = new Date();
     },
-    beforeUpdate: function (order, options) {
-      order.updatedAt = new Date();
+    beforeUpdate: function (typeusers, options) {
+      typeusers.updatedAt = new Date();
     },
   },
 });

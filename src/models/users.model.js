@@ -11,12 +11,12 @@ module.exports = (sequelize) => sequelize.define('users', {
     updatedAt: DataTypes.DATE,
   }, {
     hooks: {
-      beforeCreate: function (order, options) {
-        order.createdAt = new Date();
-        order.updatedAt = new Date();
+      beforeCreate: function (users, options) {
+        users.createdAt = new Date();
+        users.updatedAt = new Date();
       },
-      beforeUpdate: function (order, options) {
-        order.updatedAt = new Date();
+      beforeUpdate: function (users, options) {
+        users.updatedAt = new Date();
       },
     },
   });
