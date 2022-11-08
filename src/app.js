@@ -1,14 +1,17 @@
-const express = require('express')
-const app = express()
+const express = require('express');
+const app = express();
+const routes = require('./routes/index.routes');
 
 // Midlewares
-app.use(express.urlencoded({ extended: true }))
-app.use(express.json())
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 
 app.get('/', (req, res) => {
-  res.send({ message: 'Welcome to SounWave API' });
+  res.send({ message: 'Welcome to SoundWave API' });
 })
+
+app.get('/api', routes);
 
 
 const PORT = 4000;
