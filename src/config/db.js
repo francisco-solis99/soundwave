@@ -1,4 +1,6 @@
 const { Sequelize } = require('sequelize');
+require('dotenv').config();
+
 
 const topsModel = require('../models/tops.model');
 const songsModel = require('../models/songs.models');
@@ -6,9 +8,9 @@ const topSongsModel = require('../models/top-songs.model');
 const genresModel = require('../models/genres.model');
 const artistsModel = require('../models/artists.model');
 
-const sequelize = new Sequelize('soundwave', 'root', 'root',
+const sequelize = new Sequelize(process.env.DB_DATABASE, process.env.DB_USER, process.env.DB_PASSWORD,
   {
-    host: 'localhost',
+    host: process.env.DB_HOST,
     dialect: 'mysql',
     port: 3306,
     logging: false
