@@ -13,7 +13,7 @@ const Tops = (sequelize) => sequelize.define('tops', {
     description: {
         type: DataTypes.TEXT,
     },
-    userID: {
+    userId: {
         type: DataTypes.INTEGER,
         references: {
             model: 'users',
