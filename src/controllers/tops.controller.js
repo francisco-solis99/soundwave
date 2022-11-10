@@ -12,11 +12,11 @@ async function getAllTops(req, res){
 
 async function getTopById(req, res){
     const {params: {id}} = req;
-    const  top = await sequelize.models.tops.findByPk(id);
+    const top = await sequelize.models.tops.findByPk(id);
     if(!top){
         return res.status(404).json({code: 404, message: 'Top not found'});
     }
-    return res.json();
+    return res.json(top);
 };
 
 //Create top
@@ -39,6 +39,7 @@ async function updateTop(req, res){
     const updatedTop = await top.update({
         name: body.name,
         description: body.description,
+        userId: body.userId
     });
     return res.json({data: updatedTop})
 };

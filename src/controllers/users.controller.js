@@ -26,13 +26,13 @@ async function createUser (req, res){
 
       });
       await user.save();
-      return res.status(201).json({ data: User });
+      return res.status(201).json({ data: user });
     };
 
 async function updateUser (req, res){
       const { body, params: { id } } = req;
-      const review = await sequelize.models.users.findByPk(id);
-      if (!review) {
+      const user = await sequelize.models.users.findByPk(id);
+      if (!user) {
         return res.status(404).json({ code: 404, message: 'User not found' });
       }
       const updateUser = await User.update({
@@ -41,7 +41,7 @@ async function updateUser (req, res){
           nickName: body.nickName,
           email: body.email,
           password: body.password,
-          userId: body.userId,
+          typeUserId: body.typeUserId,
       });
       return res.json({ data: updateUser });
     };
@@ -49,7 +49,7 @@ async function updateUser (req, res){
  async function deleteUser (req, res){
       const { params: { id } } = req;
       const user = await sequelize.models.users.findByPk(id);
-      if (!review) {
+      if (!user) {
         return res.status(404).json({ code: 404, message: 'User not found' });
       }
       await user.destroy();

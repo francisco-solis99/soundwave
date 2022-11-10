@@ -15,20 +15,20 @@ async function getTypeUser(req, res){
 
 async function createTypeUser (req, res)  {
       const { body } = req;
-      const user = await sequelize.models.typeusers.create({
+      const typeUser = await sequelize.models.typeusers.create({
           name: body.name
       });
-      await user.save();
-      return res.status(201).json({ data: TypeUser });
+      await typeUser.save();
+      return res.status(201).json({ message: 'New user type created successfully', data: typeUser });
     };
 
 async function updateTypeUser(req, res)  {
       const { body, params: { id } } = req;
-      const review = await sequelize.models.typeusers.findByPk(id);
-      if (!review) {
+      const typeUser = await sequelize.models.typeusers.findByPk(id);
+      if (!typeUser) {
         return res.status(404).json({ code: 404, message: 'Type user not found' });
       }
-      const updateTypeUser = await TypeUser.update({
+      const updateTypeUser = await sequelize.models.typeusers.update({
           name: body.name,
           typeuserId: body.typeuserId,
       });
@@ -38,11 +38,11 @@ async function updateTypeUser(req, res)  {
  async function deleteTypeUser (req, res)  {
       const { params: { id } } = req;
       const typeuser = await sequelize.models.typeusers.findByPk(id);
-      if (!review) {
+      if (!typeuser) {
         return res.status(404).json({ code: 404, message: 'Type user not found' });
       }
       await typeuser.destroy();
-      return res.json();
+      return res.json({message: 'Deleted successfully'});
     };
 
 module.exports = {
