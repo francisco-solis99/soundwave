@@ -24,7 +24,7 @@ module.exports = (sequelize) => sequelize.define('users', {
       type: DataTypes.STRING,
       allowNull:false
     },
-    typeUserId: {
+    typeuserId: {
         type: DataTypes.INTEGER,
         references: {
             model: 'typeusers',
