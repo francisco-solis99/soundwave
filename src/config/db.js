@@ -1,6 +1,8 @@
 const { Sequelize } = require('sequelize');
 
 
+const typesUsersModel = require('../models/typeusers.model');
+const usersModel = require('../models/users.model');
 const topsModel = require('../models/tops.model');
 const songsModel = require('../models/songs.models');
 const topSongsModel = require('../models/top-songs.model');
@@ -17,7 +19,7 @@ const sequelize = new Sequelize(process.env.DB_DATABASE, process.env.DB_USER, pr
 );
 
 // Add models
-const models = [ topsModel, songsModel, topSongsModel, genresModel, artistsModel ];
+const models = [ typesUsersModel, usersModel, topsModel, songsModel, topSongsModel, genresModel, artistsModel ];
 
 for(let model of models)
   model(sequelize);
