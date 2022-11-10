@@ -25,18 +25,25 @@ for(let model of models)
   model(sequelize);
 
 // Relations
-const { tops, songs, artists, genres, topSongs} = sequelize.models;
+const { typeusers, users, tops, songs, artists, genres, topSongs} = sequelize.models;
+
+// Users with typeUsers
+// users.belongsTo(typeusers);
+
+// many to many relation Tops - Songs
+topSongs.belongsTo(tops);
+topSongs.belongsTo(songs);
+// tops.belongsToMany(songs,{ through: topSongs });
+// songs.belongsToMany(tops,{ through: topSongs });
 
 // Artists - Songs
-artists.hasMany(songs);
+// artists.hasMany(songs);
 songs.belongsTo(artists);
 
 // Genres - Songs
-genres.hasMany(songs);
+// genres.hasMany(songs);
 songs.belongsTo(genres);
 
-// many to many relation Tops - Songs
-tops.belongsToMany(songs,{ through: topSongs });
-songs.belongsToMany(tops,{ through: topSongs });
+
 
 module.exports = sequelize;

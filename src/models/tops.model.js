@@ -13,6 +13,14 @@ const Tops = (sequelize) => sequelize.define('tops', {
     description: {
         type: DataTypes.TEXT,
     },
+    userID: {
+        type: DataTypes.INTEGER,
+        references: {
+            model: 'users',
+            key: 'id'
+        },
+        onDelete: 'CASCADE'
+    },
     createdAt: DataTypes.DATE,
     updatedAt: DataTypes.DATE
 }, {
