@@ -1,12 +1,12 @@
 const router = require('express').Router();
 
  const {
-    getAllTopSongs, 
-    getTopSongsById, 
+    getAllTopSongs,
+    getTopSongsById,
     createTopSongs,
     updateTopSongs,
     deleteTopSongs
-} = require('../controllers/tops-songs.controller')
+} = require('../controllers/top-songs.controller')
 
 router.get('/', getAllTopSongs)
 router.get('/:id', getTopSongsById)
