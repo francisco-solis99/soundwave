@@ -18,14 +18,14 @@ async function getUsers (req, res){
         typeuserId: { [Op.in]: type ? [Number(type)] : typesUserIds }
       }
     })
-      .then(data => res.json(data))
-      .catch(err => res.json({ message: 'Error', data: err }))
+      .then(data => res.status(200).json(data))
+      .catch(err => res.status(404).json({ message: err.message, data: null }))
 };
 
 async function getUserById(req, res){
     const {params: {id}} = req;
     const user = await sequelize.models.users.findByPk(id);
-    if(!user) return res.status(404).json({code: 404, message: 'User not found'});
+    if(!user) return res.status(404).json({code: 404, message: 'User not found', data: null});
     return res.json(user);
 };
 
@@ -47,15 +47,11 @@ async function createUser (req, res){
       .catch(err => {
         if (["SequelizeValidationError", "SequelizeUniqueConstraintError"].includes(err.name)) {
           return res.status(400).json({
-            data: err.errors.map((e) => e.message),
+            message: err.errors.map((e) => e.message),
+            data: null
           });
         }
-        else if (err.message === 'UserType Error') {
-          return res.status(400).json({ data: err.message });
-        }
-        else {
-          return res.status(400).json({data: err});
-        }
+        return res.status(400).json({ message: 'Error trying to create the new user', data: null });
       })
     };
 
@@ -63,27 +59,39 @@ async function updateUser (req, res){
       const { body, params: { id } } = req;
       const user = await sequelize.models.users.findByPk(id);
       if (!user) {
-        return res.status(404).json({ code: 404, message: 'User not found' });
+        return res.status(404).json({ code: 404, message: 'User not found', data: null});
       }
-      const updateUser = await User.update({
+      await user.update({
           name: body.name,
           surname: body.surname,
           nickName: body.nickName,
           email: body.email,
           password: body.password,
-          typeUserId: body.typeUserId,
+          typeuserId: body.typeuserId,
+      })
+      .then(async(updateUser) => {
+        await updateUser.save();
+        return res.status(201).json({ message: "User updated successfully", data: updateUser });
+      })
+      .catch(err => {
+        if (["SequelizeValidationError", "SequelizeUniqueConstraintError"].includes(err.name)) {
+          return res.status(400).json({
+            message: err.errors.map((e) => e.message),
+            data: null
+          });
+        }
+        return res.status(400).json({ message: 'Error trying to update the new user', data: null });
       });
-      return res.json({ data: updateUser });
 };
 
  async function deleteUser (req, res){
       const { params: { id } } = req;
       const user = await sequelize.models.users.findByPk(id);
       if (!user) {
-        return res.status(404).json({ code: 404, message: 'User not found' });
+        return res.status(404).json({ code: 404, message: 'User not found', data: null});
       }
       await user.destroy();
-      return res.json();
+      return res.json({message: 'User removed successfully', data: true});
     };
 
 module.exports = {
