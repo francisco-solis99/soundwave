@@ -2,7 +2,7 @@ const express = require('express')
 const sequelize = require('../config/db')
 const jwt = require('jsonwebtoken')
 
-async function login() {
+async function login(req, res) {
     const { body } = req
 
     // Find if there's a user with the given email
@@ -25,7 +25,7 @@ async function login() {
     return res.json({ message: 'Successful login', token })
 }
 
-async function signup() {
+async function signup(req, res) {
     const { body } = req
 
     // Find if there's a user with the given email
