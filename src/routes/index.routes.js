@@ -7,6 +7,7 @@ const songs = require('./songs.routes');
 const topSongs = require('./top-songs.routes');
 const artists = require('./artists.routes');
 const genres = require('./genres.routes');
+const auth = require('./auth.routes');
 
 // API Routes/endpoints
 router.use('/types', types);
@@ -16,5 +17,6 @@ router.use('/songs', songs);
 router.use('/toplist', topSongs);
 router.use('/artists', artists);
 router.use('/genres', genres);
+router.use('/auth', auth);
 
 module.exports = router;
