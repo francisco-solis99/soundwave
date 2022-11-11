@@ -1,6 +1,8 @@
-const { DataTypes } = require('sequelize');
+const { DataTypes } = require('sequelize')
+const bcrypt = require('bcrypt')
 
-module.exports = (sequelize) => sequelize.define('users', {
+module.exports = (sequelize) => {
+  const User = sequelize.define('users', {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -8,40 +10,49 @@ module.exports = (sequelize) => sequelize.define('users', {
     },
     name: {
       type: DataTypes.STRING,
-      allowNull:false
+      allowNull: false
     },
     surname: DataTypes.STRING,
     nickName: DataTypes.STRING,
     email: {
       type: DataTypes.STRING,
-      allowNull:false,
+      allowNull: false,
       unique: true,
       validate: {
-        isEmail:true
+        isEmail: true
       }
     },
-    password:{
+    password: {
       type: DataTypes.STRING,
-      allowNull:false
+      allowNull: false
     },
     typeUserId: {
-        type: DataTypes.INTEGER,
-        references: {
-            model: 'typeusers',
-            key: 'id'
-        },
-        onDelete: 'CASCADE'
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'typeusers',
+        key: 'id'
+      },
+      onDelete: 'CASCADE'
     },
     createdAt: DataTypes.DATE,
     updatedAt: DataTypes.DATE,
   }, {
     hooks: {
-      beforeCreate: function (user, options) {
-        user.createdAt = new Date();
-        user.updatedAt = new Date();
+      beforeCreate: function (user) {
+        const salt = bcrypt.genSaltSync() // Generate key
+        user.password = bcrypt.hashSync(user.password, salt) // Pass password and key to create encrypted password
+        user.createdAt = new Date()
+        user.updatedAt = new Date()
       },
-      beforeUpdate: function (user, options) {
-        user.updatedAt = new Date();
+      beforeUpdate: function (user) {
+        user.updatedAt = new Date()
       },
     },
-  });
+  })
+
+  User.prototype.validPassword = function (password) {
+    return bcrypt.compareSync(password, this.password)
+  }
+
+  return User
+}
