@@ -1,11 +1,14 @@
 require('dotenv').config();
 
 const express = require('express');
-const app = express();
+const helmet = require('helmet');
+const cors = require('cors');
 const routes = require('./routes/index.routes');
-const sequelize = require('./config/db');
 
+const app = express();
 
+app.use(helmet())
+app.use(cors())
 
 // Midlewares
 app.use(express.urlencoded({ extended: true }));
