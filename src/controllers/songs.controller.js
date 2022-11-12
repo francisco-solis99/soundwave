@@ -11,11 +11,20 @@ async function createSong(req, res) {
         genreId: body.genreId
     })
     .then(async(song) =>{
-        await songs.save();
-        return res.status(201).json({ message: 'Song created successfully', data: song});
+        await song.save();
+        return res.status(201).json({ message: 'Song created successfully', data: song });
     })
-    .catch(err => res.status(404).json({ message: 'Error trying to create a new song', data: err }));
-}
+    .catch(err => {
+        if (["SequelizeValidationError", "SequelizeUniqueConstraintError"].includes(err.name)) {
+          return res.status(400).json({
+            message: err.errors.map((e) => e.message),
+            data: null
+          });
+        }
+        return res.status(400).json({ message: 'Error trying to create a new song', data: null });
+      })
+    };
+
 
 async function getSongById(req, res) {
     const {params: {id}} = req;
@@ -33,7 +42,16 @@ async function getSongById(req, res) {
 }
 
 async function getAllSongs(req, res) {
-    return await sequelize.models.songs.findAndCountAll()
+    const { limit, orderBy, sort } = req.query;
+    const sortProp = ['ASC', 'DESC'].includes(sort ?.toUpperCase()) ? sort.toUpperCase() : 'ASC'; 
+    const orderByProp = Object.keys(sequelize.models.users.rawAttributes).includes(orderBy) ? orderBy : 'id';
+
+    return await sequelize.models.songs.findAndCountAll({
+        limit: limit ? Number(limit) : limit, 
+        order: [
+            [orderByProp, sortProp]
+        ]
+    })
     .then(song => res.status(200).json(song))
     .catch(err => res.status(404).json({ message: err.message, data: null }))
 }
