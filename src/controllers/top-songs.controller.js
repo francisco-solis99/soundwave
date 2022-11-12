@@ -3,8 +3,6 @@ const Songs = require('../models/songs.models');
 
 //Get all top-songs 
 async function getAllTopSongs(req, res){
-    // const topSongs = await sequelize.models.topSongs.findAndCountAll();
-    // return res.status(200).json({data: topSongs}); //Original snippet
     return await sequelize.models.topSongs.findAndCountAll()
         .then(data => res.status(200).json(data))
         .catch(err => res.status(404).json({message: err.message, data: null}));
