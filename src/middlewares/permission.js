@@ -1,14 +1,13 @@
 const permission = (...allowedRoles) => {
     return (req, res, next) => {
-        const { user } = req;
-        //check here user type
+        const { user } = req
 
-        console.log(allowedRoles, user.typeUserId)
+        //Check User Type 1 - Admin, 2 - Premium
         if (user && allowedRoles.includes(user.typeUserId)) {
-            return next(); // if type permission is allowed, so continue the request using the next middleware
+            return next() // if type permission is allowed, so continue the request using the next middleware
         }
-        return res.status(403).json({ message: 'Forbidden' }); //{ message: 'Forbidden' }
-    };
+        return res.status(403).json({ message: 'Forbidden' }) 
+    }
 }
 
-module.exports = permission;
+module.exports = permission
