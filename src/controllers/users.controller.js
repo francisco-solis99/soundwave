@@ -21,7 +21,7 @@ async function createUser (req, res){
           surname: body.surname,
           nickName: body.nickName,
           email: body.email,
-          typeuserId: body.typeuserId,
+          typeUserId: body.typeUserId,
           password: body.password
 
       });
@@ -35,7 +35,7 @@ async function updateUser (req, res){
       if (!user) {
         return res.status(404).json({ code: 404, message: 'User not found' });
       }
-      const updateUser = await User.update({
+      const updateUser = await user.update({
           name: body.name,
           surname: body.surname,
           nickName: body.nickName,
