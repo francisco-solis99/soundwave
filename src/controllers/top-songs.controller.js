@@ -3,8 +3,9 @@ const Songs = require('../models/songs.models');
 
 //Get all top-songs 
 async function getAllTopSongs(req, res){
-    const topSongs = await sequelize.models.topSongs.findAndCountAll();
-    return res.status(200).json({data: topSongs}); 
+    return await sequelize.models.topSongs.findAndCountAll()
+        .then(data => res.status(200).json(data))
+        .catch(err => res.status(404).json({message: err.message, data: null}));
 }; 
 
 //Get top-songs by id
@@ -28,12 +29,15 @@ async function getTopSongsById(req, res){
 
 async function createTopSongs(req, res){
     const {body} = req; 
-    const topSongs = await sequelize.models.topSongs.create({
+    await sequelize.models.topSongs.create({
         topId: body.topId, 
         songId: body.songId
-    });
-    await topSongs.save();
-    return res.status(201).json({data: topSongs});
+    })
+    .then(async(topSongs) => {
+        await topSongs.save();
+        return res.status(201).json({message: 'Top created successfully', data: topSongs});
+    })
+    .catch(err => res.status(404).json({message: 'Error trying to create a new top', data: err}));
 };
 
 //Update
@@ -48,7 +52,7 @@ async function updateTopSongs(req, res){
         topId: body.topId, 
         songId: body.songId
     }); 
-    return res.json({data: updatedTopSongs}); 
+    return res.json({ message: 'Top updated successfully', data: updatedTopSongs}); 
 };
 
 //Delete
@@ -60,7 +64,7 @@ async function deleteTopSongs(req, res){
         return res.status(404).json({code: 404, message: 'Top not found'});
     }
     await topSongs.destroy();
-    return res.json(); 
+    return res.json({message: 'Deleted successfully'}); 
 }; 
 
 module.exports = {
