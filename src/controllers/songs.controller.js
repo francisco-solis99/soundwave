@@ -10,7 +10,7 @@ async function createSong(req, res) {
 
 async function getSongById(req, res) {
     const id = req.params.id
-    const song = sequelize.models.songs.findByPk(id)
+    const song = await sequelize.models.songs.findByPk(id)
     if (!song) {
         return res.status(404).json({ message: 'Song not found' })
     }
