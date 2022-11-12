@@ -31,13 +31,6 @@ async function getTopSongsById(req, res){
 
 async function createTopSongs(req, res){
     const {body} = req; 
-    // const topSongs = await sequelize.models.topSongs.create({
-    //     topId: body.topId, 
-    //     songId: body.songId
-    // });
-    // await topSongs.save();
-    // return res.status(201).json({data: topSongs}); 
-
     await sequelize.models.topSongs.create({
         topId: body.topId, 
         songId: body.songId
