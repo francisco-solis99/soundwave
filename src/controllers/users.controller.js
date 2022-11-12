@@ -5,7 +5,6 @@ async function getUsers (req, res){
     const { limit, type, orderBy, sort } = req.query;
     const typesUserIds = (await sequelize.models.typeusers.findAll({ attributes: ['id'] }))
                                .map(item => item.dataValues.id);
-    // console.log(Object.keys(sequelize.models.users.rawAttributes));
     const sortProp = ['ASC', 'DESC'].includes(sort?.toUpperCase()) ? sort.toUpperCase() : 'ASC';
     const orderByProp = Object.keys(sequelize.models.users.rawAttributes).includes(orderBy) ? orderBy : 'id';
 
@@ -25,10 +24,11 @@ async function getUsers (req, res){
 async function getUserById(req, res){
     const {params: {id}} = req;
     const user = await sequelize.models.users.findByPk(id);
-    if(!user) return res.status(404).json({code: 404, message: 'User not found', data: null});
-    return res.json(user);
+    if(!user) {
+      return res.status(404).json({code: 404, message: 'User not found', data: null});
+    }
+      return res.json(user);
 };
-
 
 async function createUser (req, res){
       const { body } = req;
@@ -67,7 +67,7 @@ async function updateUser (req, res){
           nickName: body.nickName,
           email: body.email,
           password: body.password,
-          typeuserId: body.typeuserId,
+          typeuserId: body.typeuserId
       })
       .then(async(updateUser) => {
         await updateUser.save();
