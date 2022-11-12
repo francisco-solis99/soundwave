@@ -1,4 +1,4 @@
-const router = require('express').Router();
+const router = require('express').Router()
 const {
     getTypeUsers,
     getTypeUser,
@@ -6,11 +6,12 @@ const {
     updateTypeUser,
     deleteTypeUser
 } = require('../controllers/typeuser.controller')
+const permission = require('../middlewares/permission')
 
-router.get('/', getTypeUsers)
-router.get('/:id', getTypeUser)
-router.post('/', createTypeUser)
-router.patch('/:id', updateTypeUser)
-router.delete('/:id', deleteTypeUser)
+router.get('/', permission(1), getTypeUsers)
+router.get('/:id', permission(1), getTypeUser)
+router.post('/', permission(1), createTypeUser)
+router.patch('/:id', permission(1), updateTypeUser)
+router.delete('/:id', permission(1), deleteTypeUser)
 
-module.exports = router;
+module.exports = router

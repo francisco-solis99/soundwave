@@ -1,4 +1,4 @@
-const router = require('express').Router();
+const router = require('express').Router()
 const {
     getUsers,
     getUserById,
@@ -6,12 +6,13 @@ const {
     updateUser,
     deleteUser
 } = require('../controllers/users.controller')
+const permission = require('../middlewares/permission')
 
-router.get('/', getUsers)
-router.get('/:id', getUserById)
-router.post('/', createUser)
-router.patch('/:id', updateUser)
-router.delete('/:id', deleteUser)
+router.get('/', permission(1), getUsers)
+router.get('/:id', permission(1), getUserById)
+router.post('/', permission(1), createUser)
+router.patch('/:id', permission(1), updateUser)
+router.delete('/:id', permission(1), deleteUser)
 
-module.exports = router;
+module.exports = router
 
