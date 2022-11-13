@@ -26,13 +26,13 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false
     },
-    typeUserId: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: 'typeusers',
-        key: 'id'
-      },
-      onDelete: 'CASCADE'
+    typeuserId: {
+        type: DataTypes.INTEGER,
+        references: {
+            model: 'typeusers',
+            key: 'id'
+        },
+        onDelete: 'CASCADE'
     },
     createdAt: DataTypes.DATE,
     updatedAt: DataTypes.DATE,

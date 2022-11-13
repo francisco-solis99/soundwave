@@ -28,7 +28,7 @@ for(let model of models)
 const { typeusers, users, tops, songs, artists, genres, topSongs} = sequelize.models;
 
 // Users with typeUsers
-// users.belongsTo(typeusers);
+users.belongsTo(typeusers);
 
 // many to many relation Tops - Songs
 topSongs.belongsTo(tops);

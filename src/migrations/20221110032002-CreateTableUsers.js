@@ -4,10 +4,10 @@
 module.exports = {
   up: async(queryInterface, Sequelize) => {
     await queryInterface.createTable('users', {
-      id: { 
+      id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
-        autoIncrement: true 
+        autoIncrement: true
       },
       name: {
         type: Sequelize.STRING,
@@ -17,7 +17,7 @@ module.exports = {
       nickName: Sequelize.STRING,
       email: {
         type: Sequelize.STRING,
-        allowNull:false, 
+        allowNull:false,
         unique: true,
         validate: {
           isEmail:true
@@ -25,7 +25,7 @@ module.exports = {
        },
       password:{
         type: Sequelize.STRING,
-        allowNull:false 
+        allowNull:false
       },
       typeuserId:{
         type: Sequelize.INTEGER,
@@ -33,14 +33,14 @@ module.exports = {
           model: 'typeusers',
           key: 'id'
        },
-       onDelete: 'CASCADE' 
+       onDelete: 'CASCADE'
      },
      createdAt: Sequelize.DATE,
      updatedAt: Sequelize.DATE,
-    })  
-  }, 
+    })
+  },
 
   down: async(queryInterface, Sequelize) => {
     await queryInterface.dropTable('users');
   }
-}; 
+};
