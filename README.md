@@ -37,6 +37,7 @@
 
 
 ## About the project
+An API where you can see the list of top songs from different eras. An unregistered user can view the initial preloaded songs tops. A registered user has the option to create their own music tops. All users can view filtered lists of songs by genre, artist and year.
 
 ## Built with
 * [![JavaScript][JavaScript.js]][JavaScript-url]
