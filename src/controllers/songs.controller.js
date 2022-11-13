@@ -27,8 +27,14 @@ async function createSong(req, res) {
 
 
 async function getSongById(req, res) {
-    const {params: {id}} = req
-    const song = await sequelize.models.songs.findByPk(id)
+    const {params: {id}} = req;
+    const song = await sequelize.models.songs.findOne({
+        where: {id},
+        include: [
+            {model: sequelize.models.artists, attributes: ['name', 'country', 'ytchannel']},
+            {model: sequelize.models.genres, attributes: ['name']}
+        ]
+    });
     if (!song) {
         return res.status(404).json({ message: 'Song not found' })
     }
@@ -44,6 +50,10 @@ async function getAllSongs(req, res) {
         limit: limit ? Number(limit) : limit,
         order: [
             [orderByProp, sortProp]
+        ],
+        include: [
+            {model: sequelize.models.artists, attributes: ['name', 'country', 'ytchannel']},
+            {model: sequelize.models.genres, attributes: ['name']}
         ]
     })
     .then(song => res.status(200).json(song))
