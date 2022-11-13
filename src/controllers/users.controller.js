@@ -70,7 +70,7 @@ async function updateUser(req, res) {
     nickName: body.nickName,
     email: body.email,
     password: body.password,
-    typeUserId: body.typeUserId
+    typeuserId: body.typeuserId
   })
     .then(async (updateUser) => {
       await updateUser.save()
