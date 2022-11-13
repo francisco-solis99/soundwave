@@ -33,7 +33,7 @@ async function createArtist(req, res) {
     })
     .then(async(artist) => {
         await artist.save();
-        return res.status(201).json({ message: "Artist created successfully", data: user });
+        return res.status(201).json({ message: "Artist created successfully", data: artist });
     })
     .catch(err => {
         if (["SequelizeValidationError", "SequelizeUniqueConstraintError"].includes(err.name)) {
