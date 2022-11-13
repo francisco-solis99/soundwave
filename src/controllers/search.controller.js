@@ -6,6 +6,7 @@ async function searchSongs(req, res){
   const { query } = req.body;
   // If the query was no gaven
   if(!query) return res.status(400).json({ message: 'Query required', data: null });
+
   await sequelize.models.songs.findAll({
     limit: limit ? Number(limit) : limit,
     where: {

@@ -9,8 +9,8 @@ async function getTypeUsers (req, res)  {
 async function getTypeUser(req, res){
   const {params: {id}} = req;
   const typeUser = await sequelize.models.typeusers.findByPk(id);
-  if(!typeUser){ 
-     return res.status(404).json({code: 404, message: 'User not found'});
+  if(!typeUser){
+     return res.status(404).json({ message: 'User not found', data: null});
   }
   return res.json(typeUser);
 };
@@ -39,7 +39,7 @@ async function updateTypeUser(req, res)  {
       const { body, params: { id } } = req;
       const typeUser = await sequelize.models.typeusers.findByPk(id);
       if (!typeUser) {
-        return res.status(404).json({ code: 404, message: 'Type user not found', data: null });
+        return res.status(404).json({ message: 'Type user not found', data: null });
       }
       await typeUser.update({
           name: body.name,
@@ -59,15 +59,15 @@ async function updateTypeUser(req, res)  {
       });
 };
 
- async function deleteTypeUser (req, res)  {
+async function deleteTypeUser (req, res)  {
       const { params: { id } } = req;
       const typeuser = await sequelize.models.typeusers.findByPk(id);
       if (!typeuser) {
-        return res.status(404).json({ code: 404, message: 'Type user not found' });
+        return res.status(404).json({ message: 'Type user not found', data: null });
       }
       await typeuser.destroy();
-      return res.json({ message: 'Type of user removed successfully' });
-    };
+      return res.json({ message: 'Type of user removed successfully', data: true});
+};
 
 module.exports = {
      getTypeUsers,

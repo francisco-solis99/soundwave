@@ -25,7 +25,7 @@ async function getUserById(req, res){
     const {params: {id}} = req;
     const user = await sequelize.models.users.findByPk(id);
     if(!user) {
-      return res.status(404).json({code: 404, message: 'User not found', data: null});
+      return res.status(404).json({ message: 'User not found', data: null});
     }
       return res.json(user);
 };
@@ -59,7 +59,7 @@ async function updateUser (req, res){
       const { body, params: { id } } = req;
       const user = await sequelize.models.users.findByPk(id);
       if (!user) {
-        return res.status(404).json({ code: 404, message: 'User not found', data: null});
+        return res.status(404).json({ message: 'User not found', data: null});
       }
       await user.update({
           name: body.name,
@@ -88,7 +88,7 @@ async function updateUser (req, res){
       const { params: { id } } = req;
       const user = await sequelize.models.users.findByPk(id);
       if (!user) {
-        return res.status(404).json({ code: 404, message: 'User not found', data: null});
+        return res.status(404).json({ message: 'User not found', data: null});
       }
       await user.destroy();
       return res.json({message: 'User removed successfully', data: true});

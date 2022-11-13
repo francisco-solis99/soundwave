@@ -1,10 +1,7 @@
-const { Op } = require("sequelize");
 const sequelize = require('../config/db');
 
 async function getAllArtists(req, res) {
-    const { limit, type, orderBy, sort } = req.query;
-    const typesUserIds = (await sequelize.models.typeusers.findAll({ attributes: ['id'] }))
-                               .map(item => item.dataValues.id);
+    const { limit, orderBy, sort } = req.query;
     const sortProp = ['ASC', 'DESC'].includes(sort?.toUpperCase()) ? sort.toUpperCase() : 'ASC';
     const orderByProp = Object.keys(sequelize.models.artists.rawAttributes).includes(orderBy) ? orderBy : 'id';
 
@@ -12,20 +9,17 @@ async function getAllArtists(req, res) {
       limit: limit ? Number(limit) : limit,
       order: [
         [orderByProp, sortProp]
-      ],
-      where: {
-        id: { [Op.in]: type ? [Number(type)] : typesUserIds }
-      }
+      ]
     })
       .then(artists => res.status(200).json(artists))
       .catch(err => res.status(404).json({ message: err.message, data: null }))
 };
-  
+
 async function getArtistById(req, res) {
     const id = req.params.id
     const artist = await sequelize.models.artists.findByPk(id);
     if (!artist) {
-        return res.status(404).json({code: 404, message: 'Artist not found' });
+        return res.status(404).json({message: 'Artist not found', data: null });
     }
     return res.json(artist);
 };
@@ -51,12 +45,12 @@ async function createArtist(req, res) {
         return res.status(400).json({ message: 'Error trying to create the new artist', data: null });
     })
    };
-        
+
 async function updateArtist(req, res) {
     const { body, params: { id } } = req;
     const artist = await sequelize.models.artists.findByPk(id);
     if (!artist) {
-        return res.status(404).json({ code: 404, message: 'Artist not found', data: null });
+        return res.status(404).json({ message: 'Artist not found', data: null });
     }
     await artist.update({
         name: body.name,
@@ -82,12 +76,12 @@ async function updateArtist(req, res) {
 
 async function deleteArtist(req, res) {
     const id = req.params.id
-    const deleted_artist = await sequelize.models.artists.findByPk(id);    
+    const deleted_artist = await sequelize.models.artists.findByPk(id);
     if (!deleted_artist) {
-        return res.status(404).json({ code: 404, message: 'Artist not found' });
+        return res.status(404).json({ message: 'Artist not found', data: null });
     }
     await deleted_artist.destroy();
-    return res.json({ message: 'Deleted successfully' });
+    return res.json({ message: 'Deleted successfully', data: true });
   };
 
 module.exports = {

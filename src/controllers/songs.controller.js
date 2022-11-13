@@ -28,13 +28,7 @@ async function createSong(req, res) {
 
 async function getSongById(req, res) {
     const {params: {id}} = req;
-    const song = sequelize.models.songs.findOne({
-        where: {id},
-        include: [
-            {model: sequelize.model.artists, attributes: ['id']},
-            {model: sequelize.model.genres, attributes: ['id']}
-        ]
-    }); 
+    const song = await sequelize.models.songs.findByPk(id);
     if (!song) {
         return res.status(404).json({ message: 'Song not found' })
     }
@@ -43,11 +37,11 @@ async function getSongById(req, res) {
 
 async function getAllSongs(req, res) {
     const { limit, orderBy, sort } = req.query;
-    const sortProp = ['ASC', 'DESC'].includes(sort ?.toUpperCase()) ? sort.toUpperCase() : 'ASC'; 
+    const sortProp = ['ASC', 'DESC'].includes(sort?.toUpperCase()) ? sort.toUpperCase() : 'ASC';
     const orderByProp = Object.keys(sequelize.models.users.rawAttributes).includes(orderBy) ? orderBy : 'id';
 
     return await sequelize.models.songs.findAndCountAll({
-        limit: limit ? Number(limit) : limit, 
+        limit: limit ? Number(limit) : limit,
         order: [
             [orderByProp, sortProp]
         ]
@@ -57,10 +51,10 @@ async function getAllSongs(req, res) {
 }
 
 async function updateSong(req, res) {
-    const {body, params: {id}} = req; 
+    const {body, params: {id}} = req;
     const song = await sequelize.models.songs.findByPk(id);
     if(!song){
-        return res.status(404)({code: 404, message: 'Song not found'});
+        return res.status(404)({message: 'Song not found', data: null});
     }
     const updatedSong = await song.update({
         name: body.name,
@@ -74,13 +68,13 @@ async function updateSong(req, res) {
 
 async function deleteSong(req, res) {
    const {params: {id}} = req;
-   const song = await sequelize.models.songs.findByPk(id); 
+   const song = await sequelize.models.songs.findByPk(id);
    if(!song){
-    return res.status(404).json({code: 404, message: 'Song not found'}); 
+    return res.status(404).json({ message: 'Song not found', data: null});
    }
-   await song.destroy(); 
-   return res.json({ message: 'Song deleted successfully'})
-}; 
+   await song.destroy();
+   return res.json({ message: 'Song deleted successfully', data: true})
+};
 
 module.exports = {
     createSong,
