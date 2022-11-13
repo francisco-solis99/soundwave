@@ -1,5 +1,5 @@
- const router = require('express').Router()
- const {
+const router = require('express').Router()
+const {
     getAllTops,
     getTopById,
     createTop,

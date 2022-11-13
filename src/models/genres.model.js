@@ -1,6 +1,5 @@
 const { DataTypes } = require('sequelize')
 
-
 const Genres = (sequelize) => sequelize.define('genres', {
     id: {
         type: DataTypes.INTEGER,
@@ -16,16 +15,14 @@ const Genres = (sequelize) => sequelize.define('genres', {
     updatedAt: DataTypes.DATE
 }, {
     hooks: {
-        beforeCreate: function (genre, options) {
-            genre.createdAt = new Date();
-            genre.updatedAt = new Date();
+        beforeCreate: function (genre) {
+            genre.createdAt = new Date()
+            genre.updatedAt = new Date()
         },
-        beforeUpdate: function(genre, options) {
-            genre.updatedAt = new Date();
+        beforeUpdate: function (genre) {
+            genre.updatedAt = new Date()
         },
     },
 })
 
-
-
-module.exports = Genres;
+module.exports = Genres

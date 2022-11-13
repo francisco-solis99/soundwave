@@ -1,4 +1,3 @@
-const express = require('express')
 const sequelize = require('../config/db')
 const jwt = require('jsonwebtoken')
 
@@ -11,7 +10,7 @@ async function login(req, res) {
     })
 
     // If there's no user with that email return error
-    if (!user) return res.status(401).json({ message: 'No user with given email' })
+    if (!user) return res.status(401).json({ message: 'No user registered with this email' })
 
     // If there's a user, check if the password is correct
     if (!user.validPassword(body.password)) return res.status(401).json({ message: 'Invalid credentials' })
@@ -22,7 +21,7 @@ async function login(req, res) {
     })
 
     // Return success message
-    return res.json({ message: 'Successful login', token })
+    return res.json({ message: 'Successful login!', token })
 }
 
 async function signup(req, res) {
@@ -48,7 +47,7 @@ async function signup(req, res) {
 
     // Save user
     await user.save()
-    return res.json({ message: 'User was successfully created!' })
+    return res.json({ message: 'User has been successfully created' })
 }
 
 module.exports = {

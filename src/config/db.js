@@ -1,13 +1,12 @@
-const { Sequelize } = require('sequelize');
+const { Sequelize } = require('sequelize')
 
-
-const typesUsersModel = require('../models/typeusers.model');
-const usersModel = require('../models/users.model');
-const topsModel = require('../models/tops.model');
-const songsModel = require('../models/songs.models');
-const topSongsModel = require('../models/top-songs.model');
-const genresModel = require('../models/genres.model');
-const artistsModel = require('../models/artists.model');
+const typesUsersModel = require('../models/typeusers.model')
+const usersModel = require('../models/users.model')
+const topsModel = require('../models/tops.model')
+const songsModel = require('../models/songs.models')
+const topSongsModel = require('../models/top-songs.model')
+const genresModel = require('../models/genres.model')
+const artistsModel = require('../models/artists.model')
 
 const sequelize = new Sequelize(process.env.DB_DATABASE, process.env.DB_USER, process.env.DB_PASSWORD,
   {
@@ -16,34 +15,38 @@ const sequelize = new Sequelize(process.env.DB_DATABASE, process.env.DB_USER, pr
     port: 3306,
     logging: false
   }
-);
+)
+
+sequelize.authenticate().then(() => {
+  console.log('Connection has been established successfully.')
+}).catch((error) => {
+  console.error('Unable to connect to the database: ', error)
+})
 
 // Add models
-const models = [ typesUsersModel, usersModel, topsModel, songsModel, topSongsModel, genresModel, artistsModel ];
+const models = [typesUsersModel, usersModel, topsModel, songsModel, topSongsModel, genresModel, artistsModel]
 
-for(let model of models)
-  model(sequelize);
+for (let model of models)
+  model(sequelize)
 
 // Relations
-const { typeusers, users, tops, songs, artists, genres, topSongs} = sequelize.models;
+const { typeusers, users, tops, songs, artists, genres, topSongs } = sequelize.models
 
 // Users with typeUsers
-users.belongsTo(typeusers);
+users.belongsTo(typeusers)
 
 // many to many relation Tops - Songs
-topSongs.belongsTo(tops);
-topSongs.belongsTo(songs);
-// tops.belongsToMany(songs,{ through: topSongs });
-// songs.belongsToMany(tops,{ through: topSongs });
+topSongs.belongsTo(tops)
+topSongs.belongsTo(songs)
+// tops.belongsToMany(songs,{ through: topSongs })
+// songs.belongsToMany(tops,{ through: topSongs })
 
 // Artists - Songs
-// artists.hasMany(songs);
-songs.belongsTo(artists);
+// artists.hasMany(songs)
+songs.belongsTo(artists)
 
 // Genres - Songs
-// genres.hasMany(songs);
-songs.belongsTo(genres);
+// genres.hasMany(songs)
+songs.belongsTo(genres)
 
-
-
-module.exports = sequelize;
+module.exports = sequelize

@@ -1,4 +1,4 @@
-const { DataTypes } = require('sequelize');
+const { DataTypes } = require('sequelize')
 
 const Tops = (sequelize) => sequelize.define('tops', {
     id: {
@@ -25,14 +25,14 @@ const Tops = (sequelize) => sequelize.define('tops', {
     updatedAt: DataTypes.DATE
 }, {
     hooks: {
-        beforeCreate: function (top, options) {
-            top.createdAt = new Date();
-            top.updatedAt = new Date();
+        beforeCreate: function (top) {
+            top.createdAt = new Date()
+            top.updatedAt = new Date()
         },
-        beforeUpdate: function(top, options) {
-            top.updatedAt = new Date();
+        beforeUpdate: function (top) {
+            top.updatedAt = new Date()
         },
     },
-});
+})
 
-module.exports = Tops;
+module.exports = Tops

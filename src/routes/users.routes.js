@@ -15,4 +15,3 @@ router.patch('/:id', permission(1), updateUser)
 router.delete('/:id', permission(1), deleteUser)
 
 module.exports = router
-

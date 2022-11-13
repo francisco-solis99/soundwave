@@ -27,12 +27,12 @@ module.exports = (sequelize) => {
       allowNull: false
     },
     typeuserId: {
-        type: DataTypes.INTEGER,
-        references: {
-            model: 'typeusers',
-            key: 'id'
-        },
-        onDelete: 'CASCADE'
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'typeusers',
+        key: 'id'
+      },
+      onDelete: 'CASCADE'
     },
     createdAt: DataTypes.DATE,
     updatedAt: DataTypes.DATE,

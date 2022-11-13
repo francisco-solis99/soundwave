@@ -3,6 +3,6 @@ const {
   searchSongs
 } = require('../controllers/search.controller')
 
-router.get('/songs', searchSongs);
+router.get('/songs', searchSongs)
 
-module.exports = router;
+module.exports = router

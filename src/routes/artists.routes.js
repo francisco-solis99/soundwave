@@ -11,8 +11,8 @@ const permission = require('../middlewares/permission')
 
 router.get('/', getAllArtists)
 router.get('/:id', getArtistById)
-router.post('/', authenticate, permission(1), createArtist)
-router.patch('/:id', authenticate, permission(1), updateArtist)
-router.delete('/:id', authenticate, permission(1), deleteArtist)
+router.post('/', authenticate, permission(1, 2), createArtist)
+router.patch('/:id', authenticate, permission(1, 2), updateArtist)
+router.delete('/:id', authenticate, permission(1, 2), deleteArtist)
 
 module.exports = router
