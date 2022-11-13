@@ -43,7 +43,7 @@ async function signup(req, res) {
         nickName: body.nickName,
         email: body.email,
         password: body.password,
-        typeUserId: body.typeUserId,
+        typeuserId: body.typeuserId,
     })
 
     // Save user
