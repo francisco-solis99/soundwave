@@ -1,4 +1,3 @@
-const express = require('express')
 const sequelize = require('../config/db')
 const jwt = require('jsonwebtoken')
 

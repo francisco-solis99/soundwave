@@ -1,11 +1,12 @@
-const sequelize = require('../config/db');
-const { Op } = require('sequelize');
+const sequelize = require('../config/db')
+const { Op } = require('sequelize')
 
-async function searchSongs(req, res){
-  const { limit } = req.query;
-  const { query } = req.body;
+async function searchSongs(req, res) {
+  const { limit } = req.query
+  const { query } = req.body
+
   // If the query was no gaven
-  if(!query) return res.status(400).json({ message: 'Query required', data: null });
+  if (!query) return res.status(400).json({ message: 'Query required', data: null })
 
   await sequelize.models.songs.findAll({
     limit: limit ? Number(limit) : limit,
@@ -25,16 +26,14 @@ async function searchSongs(req, res){
       }
     ]
   })
-  .then(results => {
-    return res.status(200).json({data: results});
-  })
-  .catch(err => {
-    res.status(404).json({ message: err.message, data: null })
-  })
+    .then(results => {
+      return res.status(200).json({ data: results })
+    })
+    .catch(err => {
+      res.status(404).json({ message: err.message, data: null })
+    })
 }
-
-
 
 module.exports = {
   searchSongs
-};
+}

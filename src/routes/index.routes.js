@@ -8,7 +8,6 @@ const topSongs = require('./top-songs.routes')
 const artists = require('./artists.routes')
 const genres = require('./genres.routes')
 const auth = require('./auth.routes')
-
 const authenticate = require('../middlewares/authentication')
 
 // API Routes/endpoints

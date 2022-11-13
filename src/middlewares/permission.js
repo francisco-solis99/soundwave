@@ -6,7 +6,7 @@ const permission = (...allowedRoles) => {
         if (user && allowedRoles.includes(user.typeUserId)) {
             return next() // if type permission is allowed, so continue the request using the next middleware
         }
-        return res.status(403).json({ message: 'Forbidden' }) 
+        return res.status(403).json({ message: 'Forbidden' })
     }
 }
 

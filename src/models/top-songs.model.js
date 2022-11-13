@@ -1,7 +1,6 @@
-const { DataTypes} = require('sequelize');
+const { DataTypes } = require('sequelize')
 
-
-const TopsSongs =  (sequelize) => sequelize.define('topSongs', {
+const TopsSongs = (sequelize) => sequelize.define('topSongs', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -10,8 +9,8 @@ const TopsSongs =  (sequelize) => sequelize.define('topSongs', {
     topId: {
         type: DataTypes.INTEGER,
         references: {
-          model: 'tops',
-          key: 'id'
+            model: 'tops',
+            key: 'id'
         },
         onDelete: 'CASCADE'
     },
@@ -27,17 +26,14 @@ const TopsSongs =  (sequelize) => sequelize.define('topSongs', {
     updatedAt: DataTypes.DATE
 }, {
     hooks: {
-        beforeCreate: function (topSong, options) {
-            topSong.createdAt = new Date();
-            topSong.updatedAt = new Date();
+        beforeCreate: function (topSong) {
+            topSong.createdAt = new Date()
+            topSong.updatedAt = new Date()
         },
-        beforeUpdate: function(topSong, options) {
-            topSong.updatedAt = new Date();
+        beforeUpdate: function (topSong) {
+            topSong.updatedAt = new Date()
         },
     },
-});
+})
 
-
-module.exports = TopsSongs;
-
-
+module.exports = TopsSongs

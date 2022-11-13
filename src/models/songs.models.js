@@ -40,14 +40,14 @@ const Songs = (sequelize) => sequelize.define('songs', {
     updatedAt: DataTypes.DATE
 }, {
     hooks: {
-        beforeCreate: function (song, options) {
-            song.createdAt = new Date();
-            song.updatedAt = new Date();
+        beforeCreate: function (song) {
+            song.createdAt = new Date()
+            song.updatedAt = new Date()
         },
-        beforeUpdate: function(song, options) {
-            song.updatedAt = new Date();
+        beforeUpdate: function (song) {
+            song.updatedAt = new Date()
         },
     },
 })
 
-module.exports = Songs;
+module.exports = Songs
