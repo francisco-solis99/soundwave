@@ -42,7 +42,7 @@ async function createGenre(req, res) {
           data: null
         })
       }
-      return res.status(400).json({ message: 'Error trying to create the new genre', data: null })
+      return res.status(400).json({ message: 'Error trying to create new genre', data: null })
     })
 }
 
@@ -68,7 +68,7 @@ async function updateGenre(req, res) {
           data: null
         })
       }
-      return res.status(400).json({ message: 'Error trying to update the new genre', data: null })
+      return res.status(400).json({ message: 'Error trying to update new genre', data: null })
     })
 }
 

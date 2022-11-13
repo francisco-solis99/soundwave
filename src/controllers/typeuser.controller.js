@@ -33,7 +33,7 @@ async function createTypeUser(req, res) {
           data: null
         })
       }
-      return res.status(400).json({ message: 'Error trying to create the new type of user', data: null })
+      return res.status(400).json({ message: 'Error trying to create new type of user', data: null })
     })
 }
 
@@ -58,7 +58,7 @@ async function updateTypeUser(req, res) {
           data: null
         })
       }
-      return res.status(400).json({ message: 'Error trying to update the new type of user', data: null })
+      return res.status(400).json({ message: 'Error trying to update new type of user', data: null })
     })
 }
 

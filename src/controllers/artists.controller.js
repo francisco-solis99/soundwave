@@ -44,7 +44,7 @@ async function createArtist(req, res) {
           data: null
         })
       }
-      return res.status(400).json({ message: 'Error trying to create the new artist', data: null })
+      return res.status(400).json({ message: 'Error trying to create new artist', data: null })
     })
 }
 
@@ -72,7 +72,7 @@ async function updateArtist(req, res) {
           data: null
         })
       }
-      return res.status(400).json({ message: 'Error trying to update the new artist', data: null })
+      return res.status(400).json({ message: 'Error trying to update artist', data: null })
     })
 }
 

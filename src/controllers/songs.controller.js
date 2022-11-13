@@ -21,7 +21,7 @@ async function createSong(req, res) {
             data: null
           })
         }
-        return res.status(400).json({ message: 'Error trying to create a new song', data: null })
+        return res.status(400).json({ message: 'Error trying to create new song', data: null })
       })
     }
 

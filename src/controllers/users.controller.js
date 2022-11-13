@@ -53,7 +53,7 @@ async function createUser(req, res) {
           data: null
         })
       }
-      return res.status(400).json({ message: 'Error trying to create the new user', data: null })
+      return res.status(400).json({ message: 'Error trying to create new user', data: null })
     })
 }
 
@@ -83,7 +83,7 @@ async function updateUser(req, res) {
           data: null
         })
       }
-      return res.status(400).json({ message: 'Error trying to update the new user', data: null })
+      return res.status(400).json({ message: 'Error trying to update new user', data: null })
     })
 }
 

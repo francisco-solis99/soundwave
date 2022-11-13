@@ -31,7 +31,7 @@ async function createTop(req, res) {
     const { body } = req
     return await sequelize.models.tops.create(body)
         .then(top => res.status(201).json({ message: 'Top created successfully', data: top }))
-        .catch(err => res.status(404).json({ message: 'Error trying to create a new top', data: err }))
+        .catch(err => res.status(404).json({ message: 'Error trying to create new top', data: err }))
 }
 
 // Patch - Update Top
