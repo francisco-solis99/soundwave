@@ -58,18 +58,32 @@ async function updateTop(req, res){
 
 async function deleteTop(req, res){
     const {params: {id}} = req;
-    const  top = await sequelize.models.tops.findByPk(id);
+    const top = await sequelize.models.tops.findByPk(id);
     if(!top){
         return res.status(404).json({ message: 'Top not found', data: null});
     }
     await top.destroy();
     return res.json({ message: 'Deleted succesfully', data: true});
+};
+
+// Get tops by user
+async function getTopsByUserId(req, res){
+    const {params: {id}} = req;
+    const user = await sequelize.models.tops.findByPk(id);
+    if(!user) return res.status(404).json({ message: 'User not found', data: null});
+
+    return await sequelize.models.tops.findAll({
+        where: {userId: id}
+    })
+        .then(tops => res.status(200).json(tops))
+        .catch(err => res.status(404).json({ message: err.message, data: null}));
 }
 
-module.exports= {
+module.exports = {
     getAllTops,
     getTopById,
     createTop,
     updateTop,
     deleteTop,
+    getTopsByUserId
 }
