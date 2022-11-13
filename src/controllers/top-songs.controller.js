@@ -8,14 +8,13 @@ async function getAllTopSongs(req, res){
 };
 
 //Get top-songs by id
-
 async function getTopSongsById(req, res){
     const {params: {id}} = req;
     const topSongs = await sequelize.models.topSongs.findOne({
         where: {id},
         include: [
-            {model: sequelize.models.tops, attributes: ['name']},
-            {model: sequelize.models.songs, attributes: ['name']},
+            {model: sequelize.models.tops, attributes: ['name', 'description']},
+            {model: sequelize.models.songs, attributes: ['name', 'year', 'linkYT']},
         ]
     });
     if(!topSongs){
@@ -66,10 +65,46 @@ async function deleteTopSongs(req, res){
     return res.json({message: 'Deleted successfully', data: true});
 };
 
+// Get songs by top
+async function getSongsByTopId(req, res){
+    const {params: {id}} = req;
+    const top = await sequelize.models.tops.findByPk(id);
+    if(!top) return res.status(404).json({ message: 'Top not found', data: null});
+
+    const topSongs = await sequelize.models.topSongs.findAll({
+        where: {
+            topId: id
+        },
+        include: [
+            {
+                model: sequelize.models.songs,
+                attributes: ['name', 'year', 'linkYT'],
+                include: [
+                    {
+                        model: sequelize.models.artists,
+                        attributes: ['name', 'country', 'ytchannel']
+                    },
+                    {
+                        model: sequelize.models.genres,
+                        attributes: ['name']
+                    }
+                ]
+            },
+        ]
+    });
+    console.log(topSongs);
+    if(!topSongs){
+        return res.status(404).json({ message: 'Top not found', data: null});
+    }
+    return res.status(201).json({data: topSongs});
+};
+
+
 module.exports = {
     getAllTopSongs,
     getTopSongsById,
     createTopSongs,
     updateTopSongs,
-    deleteTopSongs
+    deleteTopSongs,
+    getSongsByTopId,
 };
