@@ -47,6 +47,12 @@ module.exports = (sequelize) => {
       beforeUpdate: function (user) {
         user.updatedAt = new Date()
       },
+      beforeBulkCreate: function(users) {
+        for (const user of users) {
+          const salt = bcrypt.genSaltSync() // Generate key
+          user.password = bcrypt.hashSync(user.password, salt) // Pass password and key to create encrypted password
+        }
+      }
     },
   })
 
