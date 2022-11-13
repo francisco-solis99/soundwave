@@ -88,7 +88,6 @@ async function getSongsByTopId(req, res){
             },
         ]
     });
-    console.log(topSongs);
     if(!topSongs){
         return res.status(404).json({ message: 'Top not found', data: null});
     }
