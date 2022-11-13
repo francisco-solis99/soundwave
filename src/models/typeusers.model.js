@@ -9,6 +9,7 @@ module.exports = (sequelize) => sequelize.define('typeusers', {
   name: {
     type: DataTypes.STRING,
     allowNull: false,
+    unique: true
   },
   createdAt: DataTypes.DATE,
   updatedAt: DataTypes.DATE,
