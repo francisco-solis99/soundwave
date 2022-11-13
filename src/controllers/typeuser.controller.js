@@ -1,13 +1,13 @@
 const sequelize = require('../config/db');
 
-async function getTypeUsers (req, res)  {
-    return await sequelize.models.typeusers.findAndCountAll()
-      .then(data => res.json(data))
-      .catch(err => res.json({ message: 'Error', data: err}))
+async function getTypeUsers(req, res) {
+  return await sequelize.models.typeusers.findAndCountAll()
+    .then(data => res.json(data))
+    .catch(err => res.json({ message: 'Error', data: err }))
 };
 
-async function getTypeUser(req, res){
-  const {params: {id}} = req;
+async function getTypeUser(req, res) {
+  const { params: { id } } = req;
   const typeUser = await sequelize.models.typeusers.findByPk(id);
   if(!typeUser){
      return res.status(404).json({ message: 'User not found', data: null});
@@ -70,9 +70,9 @@ async function deleteTypeUser (req, res)  {
 };
 
 module.exports = {
-     getTypeUsers,
-     getTypeUser,
-     createTypeUser,
-     updateTypeUser,
-     deleteTypeUser
+  getTypeUsers,
+  getTypeUser,
+  createTypeUser,
+  updateTypeUser,
+  deleteTypeUser
 };

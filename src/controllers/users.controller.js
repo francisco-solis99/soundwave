@@ -37,7 +37,7 @@ async function createUser (req, res){
           surname: body.surname,
           nickName: body.nickName,
           email: body.email,
-          typeuserId: body.typeuserId,
+          typeUserId: body.typeUserId,
           password: body.password
       })
       .then(async(user) => {

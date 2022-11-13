@@ -11,7 +11,7 @@ async function login(req, res) {
     })
 
     // If there's no user with that email return error
-    if (!user) return res.status(401).json({ message: 'Unauthorized' })
+    if (!user) return res.status(401).json({ message: 'No user with given email' })
 
     // If there's a user, check if the password is correct
     if (!user.validPassword(body.password)) return res.status(401).json({ message: 'Invalid credentials' })
