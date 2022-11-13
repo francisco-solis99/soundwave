@@ -67,10 +67,11 @@ Make sure you have Nodejs, NPM and MySQL installed in your local device.
 3. Install npm packages `npm i`
 4. Open MySQL and create a database called soundwaver `CREATE DATABASE soundwave`
 5. Open the soundwave repo folder (we recommend using VScode) and create a **.env** file. Add the data with the .env-example variables from your sql server.
-6. Enter the command `./node_modules/.bin/sequelize db:migrate` in the terminal to run migrations and create the tables. 
-7. Run the app `npm run dev`
+6. Enter the command `npm run migrations:run` in the terminal to run migrations and create the tables. 
+7. Then run the command `npm run seeders:run` to insert initial data into the tables.
+8. Run the app `npm run dev`
 
-> Check this [tutorial]() to run the app!
+> Check this [tutorial]() to run the app in your local machine!
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Usage
@@ -119,8 +120,6 @@ We have three types of users and each of them has different permissions:
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Testing
-_For more examples, check the [Insomia Test Documentation]()._
-
 There are already some users in the database that you can use for testing but don't forget that you can still sign up and create a new one!
 
 **Users**
