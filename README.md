@@ -57,15 +57,18 @@ An API where you can see the list of top songs from different eras. An unregiste
 
 ## Getting started
 ### Prerequisites
-Make sure you have Nodejs and NPM installed in your local device.
-> [Install Nodejs and NPM](https://radixweb.com/blog/installing-npm-and-nodejs-on-windows-and-mac)
+Make sure you have Nodejs, NPM and MySQL installed in your local device.
+> [Install Nodejs and NPM](https://radixweb.com/blog/installing-npm-and-nodejs-on-windows-and-mac)   
+> [Getting started with MySQL](https://dev.mysql.com/doc/mysql-getting-started/en/)
 
-### Installation
+### Installation (local)
 1. Clone the repo `git clone https://github.com/francisco-solis99/soundwave`
 2. Move to directory `cd soundwave`
 3. Install npm packages `npm i`
-4. Open the folder and create a **.env** file. Add the data with the .env-example variables.
-5. Run the app `npm run dev`
+4. Open MySQL and create a database called soundwaver `CREATE DATABASE soundwave`
+5. Open the soundwave repo folder (we recommend using VScode) and create a **.env** file. Add the data with the .env-example variables from your sql server.
+6. Enter the command `./node_modules/.bin/sequelize db:migrate` in the terminal to run migrations and create the tables. 
+7. Run the app `npm run dev`
 
 > Check this [tutorial]() to run the app!
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
