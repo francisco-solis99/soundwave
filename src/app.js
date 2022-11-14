@@ -7,10 +7,10 @@ const routes = require('./routes/index.routes');
 
 const app = express();
 
+// Midlewares
 app.use(helmet())
 app.use(cors())
 
-// Midlewares
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
