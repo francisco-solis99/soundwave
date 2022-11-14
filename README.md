@@ -82,7 +82,7 @@ We have three types of users and each of them has different permissions:
 | UserType | Description | Have access to |
 | ---------| ------------| ---------------|
 | Basic      | Not registered users | get artists, log in, sign up, get genres, search, get songs, get top songs, get top |
-| 2- Premium | When user sign up    | Same as Basic user, and create artists, songs, genres and top|
+| 2- Premium | When user sign up    | Same as Basic user, create, update and delete artists, songs, genres and top|
 | 1 - Admin  | Admin user           | All endpoints |
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
