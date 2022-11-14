@@ -4,7 +4,7 @@
   "description": "A web application where you can see the musical tops of different eras and you can create your own tops",
   "main": ".src/app.js",
   "scripts": {
-    "start": "npm run migrations:run && npm run seeders:run && node ./src/app.js",
+    "start": "node ./src/app.js",
     "dev": "nodemon ./src/app.js",
     "migrations:run": "npx sequelize db:migrate",
     "seeders:run": "npx sequelize-cli db:seed:all",
