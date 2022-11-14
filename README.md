@@ -5,6 +5,7 @@
   <p align="center">
     The <b>Soundwave API</b> will provide you with many songs, artists and genres included in the top lists over the years.
     <br />
+	  <a href="https://soundwave-production-1ee2.up.railway.app/"><strong>Explore the API »</strong></a>
     </p>
 </div>
 
