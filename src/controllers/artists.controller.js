@@ -27,15 +27,16 @@ async function getArtistById(req, res) {
 
 // Post - Create Artist
 async function createArtist(req, res) {
-    const body = req.body
-    await sequelize.models.artists.create({
-        name: body.name,
-        country: body.country,
-        ytchannel: body.ytchannel
-    })
-    .then(async(artist) => {
-        await artist.save();
-        return res.status(201).json({ message: "Artist created successfully", data: artist });
+  const body = req.body
+  await sequelize.models.artists.create({
+    name: body.name,
+    country: body.country,
+    ytchannel: body.ytchannel,
+    urlImage: body.urlImage
+  })
+    .then(async (artist) => {
+      await artist.save();
+      return res.status(201).json({ message: "Artist created successfully", data: artist });
     })
     .catch(err => {
       if (["SequelizeValidationError", "SequelizeUniqueConstraintError"].includes(err.name)) {
@@ -59,6 +60,7 @@ async function updateArtist(req, res) {
     name: body.name,
     country: body.country,
     ytchannel: body.ytchannel,
+    urlImage: body.urlImage,
     artistId: body.artistId
   })
     .then(async (updateArtist) => {

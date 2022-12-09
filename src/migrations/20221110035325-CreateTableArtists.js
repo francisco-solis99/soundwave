@@ -2,18 +2,18 @@
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
-    await queryInterface.createTable('artists',{
+  async up(queryInterface, Sequelize) {
+    await queryInterface.createTable('artists', {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true
-     },
+      },
       name: {
         type: Sequelize.STRING,
         allowNull: false,
         unique: true
-     },
+      },
       country: {
         type: Sequelize.STRING,
         allowNull: false
@@ -22,7 +22,13 @@ module.exports = {
         type: Sequelize.STRING,
         unique: true,
         validate: {
-            isUrl: true
+          isUrl: true
+        }
+      },
+      urlImage: {
+        type: Sequelize.STRING,
+        validate: {
+          isUrl: true
         }
       },
       createdAt: Sequelize.DATE,
@@ -30,7 +36,7 @@ module.exports = {
     })
   },
 
-  async down (queryInterface, Sequelize) {
+  async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('artists');
   }
 };

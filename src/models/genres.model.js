@@ -11,6 +11,12 @@ const Genres = (sequelize) => sequelize.define('genres', {
         allowNull: false,
         unique: true
     },
+    urlImage: {
+        type: DataTypes.STRING,
+        validate: {
+            isUrl: true
+        }
+    },
     createdAt: DataTypes.DATE,
     updatedAt: DataTypes.DATE
 }, {

@@ -29,7 +29,8 @@ async function getGenreById(req, res) {
 async function createGenre(req, res) {
   const { body } = req
   await sequelize.models.genres.create({
-    name: body.name
+    name: body.name,
+    urlImage: body.urlImage
   })
     .then(async (genre) => {
       await genre.save()
@@ -56,6 +57,7 @@ async function updateGenre(req, res) {
   await genre.update({
     name: body.name,
     genreId: body.genreId,
+    urlImage: body.urlImage
   })
     .then(async (updateGenre) => {
       await updateGenre.save()

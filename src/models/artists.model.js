@@ -22,6 +22,12 @@ const Artists = (sequelize) => sequelize.define('artists', {
             isUrl: true
         }
     },
+    urlImage: {
+        type: DataTypes.STRING,
+        validate: {
+            isUrl: true
+        }
+    },
     createdAt: DataTypes.DATE,
     updatedAt: DataTypes.DATE
 }, {
