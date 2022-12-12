@@ -2,7 +2,7 @@ const sequelize = require('../config/db')
 
 
 async function createSong(req, res) {
-    const {body} = req
+    const { body } = req
     await sequelize.models.songs.create({
         name: body.name,
         year: body.year,
@@ -10,35 +10,35 @@ async function createSong(req, res) {
         artistId: body.artistId,
         genreId: body.genreId
     })
-    .then(async(song) =>{
-        await song.save()
-        return res.status(201).json({ message: 'Song created successfully', data: song })
-    })
-    .catch(err => {
-        if (["SequelizeValidationError", "SequelizeUniqueConstraintError"].includes(err.name)) {
-          return res.status(400).json({
-            message: err.errors.map((e) => e.message),
-            data: null
-          })
-        }
-        return res.status(400).json({ message: 'Error trying to create new song', data: null })
-      })
-    }
+        .then(async (song) => {
+            await song.save()
+            return res.status(201).json({ message: 'Song created successfully', data: song })
+        })
+        .catch(err => {
+            if (["SequelizeValidationError", "SequelizeUniqueConstraintError"].includes(err.name)) {
+                return res.status(400).json({
+                    message: err.errors.map((e) => e.message),
+                    data: null
+                })
+            }
+            return res.status(400).json({ message: 'Error trying to create new song', data: null })
+        })
+}
 
 
 async function getSongById(req, res) {
-    const {params: {id}} = req;
+    const { params: { id } } = req;
     const song = await sequelize.models.songs.findOne({
-        where: {id},
+        where: { id },
         include: [
-            {model: sequelize.models.artists, attributes: ['name', 'country', 'ytchannel']},
-            {model: sequelize.models.genres, attributes: ['name']}
+            { model: sequelize.models.artists, attributes: ['id', 'name', 'country', 'ytchannel'] },
+            { model: sequelize.models.genres, attributes: ['id', 'name'] }
         ]
     });
     if (!song) {
         return res.status(404).json({ message: 'Song not found' })
     }
-    return res.status(200).json({data: song})
+    return res.status(200).json({ data: song })
 }
 
 async function getAllSongs(req, res) {
@@ -52,19 +52,19 @@ async function getAllSongs(req, res) {
             [orderByProp, sortProp]
         ],
         include: [
-            {model: sequelize.models.artists, attributes: ['name', 'country', 'ytchannel']},
-            {model: sequelize.models.genres, attributes: ['name']}
+            { model: sequelize.models.artists, attributes: ['id', 'name', 'country', 'ytchannel', 'urlImage'] },
+            { model: sequelize.models.genres, attributes: ['id', 'name', 'urlImage'] }
         ]
     })
-    .then(song => res.status(200).json(song))
-    .catch(err => res.status(404).json({ message: err.message, data: null }))
+        .then(song => res.status(200).json(song))
+        .catch(err => res.status(404).json({ message: err.message, data: null }))
 }
 
 async function updateSong(req, res) {
-    const {body, params: {id}} = req
+    const { body, params: { id } } = req
     const song = await sequelize.models.songs.findByPk(id)
-    if(!song){
-        return res.status(404)({message: 'Song not found', data: null})
+    if (!song) {
+        return res.status(404)({ message: 'Song not found', data: null })
     }
     const updatedSong = await song.update({
         name: body.name,
@@ -73,17 +73,17 @@ async function updateSong(req, res) {
         artistId: body.artistId,
         genreId: body.genreId
     })
-    return res.json({ message: 'Song created successfully', data: updatedSong})
+    return res.json({ message: 'Song created successfully', data: updatedSong })
 }
 
 async function deleteSong(req, res) {
-   const {params: {id}} = req
-   const song = await sequelize.models.songs.findByPk(id)
-   if(!song){
-    return res.status(404).json({ message: 'Song not found', data: null})
-   }
-   await song.destroy()
-   return res.json({ message: 'Song deleted successfully', data: true})
+    const { params: { id } } = req
+    const song = await sequelize.models.songs.findByPk(id)
+    if (!song) {
+        return res.status(404).json({ message: 'Song not found', data: null })
+    }
+    await song.destroy()
+    return res.json({ message: 'Song deleted successfully', data: true })
 }
 
 module.exports = {

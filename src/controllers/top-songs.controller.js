@@ -12,8 +12,8 @@ async function getTopSongsById(req, res) {
     const topSongs = await sequelize.models.topSongs.findOne({
         where: { id },
         include: [
-            {model: sequelize.models.tops, attributes: ['name', 'description']},
-            {model: sequelize.models.songs, attributes: ['name', 'year', 'linkYT']},
+            { model: sequelize.models.tops, attributes: ['id', 'name', 'description'] },
+            { model: sequelize.models.songs, attributes: ['id', 'name', 'year', 'linkYT'] },
         ]
     })
     if (!topSongs) {
@@ -62,10 +62,10 @@ async function deleteTopSongs(req, res) {
 }
 
 // Get songs by top
-async function getSongsByTopId(req, res){
-    const {params: {id}} = req;
+async function getSongsByTopId(req, res) {
+    const { params: { id } } = req;
     const top = await sequelize.models.tops.findByPk(id);
-    if(!top) return res.status(404).json({ message: 'Top not found', data: null});
+    if (!top) return res.status(404).json({ message: 'Top not found', data: null });
 
     const topSongs = await sequelize.models.topSongs.findAll({
         where: {
@@ -78,20 +78,20 @@ async function getSongsByTopId(req, res){
                 include: [
                     {
                         model: sequelize.models.artists,
-                        attributes: ['name', 'country', 'ytchannel']
+                        attributes: ['id', 'name', 'country', 'ytchannel', 'urlImage']
                     },
                     {
                         model: sequelize.models.genres,
-                        attributes: ['name']
+                        attributes: ['id', 'name', 'urlImage']
                     }
                 ]
             },
         ]
     });
-    if(!topSongs){
-        return res.status(404).json({ message: 'Top not found', data: null});
+    if (!topSongs) {
+        return res.status(404).json({ message: 'Top not found', data: null });
     }
-    return res.status(201).json({data: topSongs});
+    return res.status(201).json({ data: topSongs });
 };
 
 
