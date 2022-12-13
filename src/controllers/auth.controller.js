@@ -21,7 +21,7 @@ async function login(req, res) {
     })
 
     // Return success message
-    return res.json({ message: 'Successful login!', token })
+    return res.json({ message: 'Successful login!', token, userId: user.id, userName: user.nickName })
 }
 
 async function signup(req, res) {
