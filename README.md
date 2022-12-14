@@ -1,5 +1,5 @@
 <div align="center" id="readme-top">
-  <img src="https://user-images.githubusercontent.com/57516503/201501267-7a8ca85e-eb46-44ed-bfce-49defcbf2884.png" alt="Logo" width="50%">
+  <img src="https://user-images.githubusercontent.com/57516503/207511389-14908b16-f8ad-4911-873f-faade2bba539.png" alt="Logo" width="50%">
 
   
   <p align="center">
