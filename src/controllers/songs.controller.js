@@ -13,7 +13,20 @@ async function createSong(req, res) {
     })
         .then(async (song) => {
             await song.save()
-            return res.status(201).json({ message: 'Song created successfully', data: song })
+            const songResponse = await sequelize.models.songs.findOne({
+                where: { id: song.id },
+                include: [
+                    {
+                        model: sequelize.models.artists,
+                        attributes: ['id', 'name', 'country', 'ytchannel', 'userId']
+                    },
+                    {
+                        model: sequelize.models.genres,
+                        attributes: ['id', 'name', 'userId']
+                    }
+                ]
+            })
+            return res.status(201).json({ message: 'Song created successfully', data: songResponse })
         })
         .catch(err => {
             if (["SequelizeValidationError", "SequelizeUniqueConstraintError"].includes(err.name)) {

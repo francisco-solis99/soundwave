@@ -38,11 +38,11 @@ async function searchSongs(req, res) {
     include: [
       {
         model: sequelize.models.artists,
-        attributes: ['id', 'name', 'country', 'ytchannel']
+        attributes: ['id', 'name', 'country', 'ytchannel', 'urlImage', 'userId']
       },
       {
         model: sequelize.models.genres,
-        attributes: ['id', 'name']
+        attributes: ['id', 'name', 'urlImage', 'userId']
       }
     ]
   })
@@ -80,7 +80,7 @@ async function searchArtistsSongs(req, res) {
     include: [
       {
         model: sequelize.models.artists,
-        attributes: ['id', 'name', 'country', 'ytchannel', 'urlImage']
+        attributes: ['id', 'name', 'country', 'ytchannel', 'urlImage', 'userId']
       },
     ]
   })
@@ -121,7 +121,7 @@ async function searchGenresSongs(req, res) {
     include: [
       {
         model: sequelize.models.genres,
-        attributes: ['id', 'name', 'urlImage']
+        attributes: ['id', 'name', 'urlImage', 'userId']
       }
     ]
   })
