@@ -28,6 +28,14 @@ const Artists = (sequelize) => sequelize.define('artists', {
             isUrl: true
         }
     },
+    userId: {
+        type: DataTypes.INTEGER,
+        references: {
+            model: 'users',
+            key: 'id'
+        },
+        onDelete: 'CASCADE'
+    },
     createdAt: DataTypes.DATE,
     updatedAt: DataTypes.DATE
 }, {

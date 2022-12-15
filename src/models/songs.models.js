@@ -36,6 +36,14 @@ const Songs = (sequelize) => sequelize.define('songs', {
         },
         onDelete: 'CASCADE'
     },
+    userId: {
+        type: DataTypes.INTEGER,
+        references: {
+            model: 'users',
+            key: 'id'
+        },
+        onDelete: 'CASCADE'
+    },
     createdAt: DataTypes.DATE,
     updatedAt: DataTypes.DATE
 }, {

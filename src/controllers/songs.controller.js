@@ -8,7 +8,8 @@ async function createSong(req, res) {
         year: body.year,
         linkYT: body.linkYT,
         artistId: body.artistId,
-        genreId: body.genreId
+        genreId: body.genreId,
+        userId: body.userId
     })
         .then(async (song) => {
             await song.save()
@@ -52,12 +53,29 @@ async function getAllSongs(req, res) {
             [orderByProp, sortProp]
         ],
         include: [
-            { model: sequelize.models.artists, attributes: ['id', 'name', 'country', 'ytchannel', 'urlImage'] },
-            { model: sequelize.models.genres, attributes: ['id', 'name', 'urlImage'] }
+            { model: sequelize.models.artists, attributes: ['id', 'name', 'country', 'ytchannel', 'urlImage', 'userId'] },
+            { model: sequelize.models.genres, attributes: ['id', 'name', 'urlImage', 'userId'] }
         ]
     })
         .then(song => res.status(200).json(song))
         .catch(err => res.status(404).json({ message: err.message, data: null }))
+}
+
+
+async function getAllSongsByUserId(req, res) {
+    const { limit, id } = req.query;
+    const songsByUser = await sequelize.models.songs.findAll({
+        where: { userId: id === 'null' ? null : Number(id) },
+        include: [
+            { model: sequelize.models.artists, attributes: ['id', 'name', 'country', 'ytchannel', 'urlImage', 'userId'] },
+            { model: sequelize.models.genres, attributes: ['id', 'name', 'urlImage', 'userId'] }
+        ],
+        limit: limit ? Number(limit) : limit
+    })
+    if (!songsByUser) {
+        return res.status(404).json({ message: 'Songs not found', data: null })
+    }
+    return res.status(200).json(songsByUser);
 }
 
 async function updateSong(req, res) {
@@ -90,6 +108,7 @@ module.exports = {
     createSong,
     getSongById,
     getAllSongs,
+    getAllSongsByUserId,
     updateSong,
     deleteSong
 }

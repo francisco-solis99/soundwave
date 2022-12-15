@@ -31,6 +31,14 @@ module.exports = {
           isUrl: true
         }
       },
+      userId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'users',
+          key: 'id'
+        },
+        onDelete: 'CASCADE'
+      },
       createdAt: Sequelize.DATE,
       updatedAt: Sequelize.DATE
     })

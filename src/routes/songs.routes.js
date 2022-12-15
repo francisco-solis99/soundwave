@@ -3,13 +3,15 @@ const {
     createSong,
     getSongById,
     getAllSongs,
+    getAllSongsByUserId,
     updateSong,
     deleteSong
 } = require('../controllers/songs.controller')
 const authenticate = require('../middlewares/authentication')
 const permission = require('../middlewares/permission')
 
-router.get('/', getAllSongs)
+// router.get('/', getAllSongs)
+router.get('/', getAllSongsByUserId)
 router.get('/:id', getSongById)
 router.post('/', authenticate, permission(1, 2), createSong)
 router.patch('/:id', authenticate, permission(1, 2), updateSong)

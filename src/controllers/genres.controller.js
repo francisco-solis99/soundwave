@@ -27,7 +27,6 @@ async function getGenreById(req, res) {
 
 async function getAllGenresByUserId(req, res) {
   const { limit, id } = req.query;
-  console.log(typeof id);
   const genresByUser = await sequelize.models.genres.findAll({
     where: { userId: id === 'null' ? null : Number(id) },
     limit: limit ? Number(limit) : limit

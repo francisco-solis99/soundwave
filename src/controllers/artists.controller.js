@@ -25,6 +25,18 @@ async function getArtistById(req, res) {
   return res.json(artist)
 }
 
+async function getAllArtistsByUserId(req, res) {
+  const { limit, id } = req.query;
+  const artistsByUser = await sequelize.models.artists.findAll({
+    where: { userId: id === 'null' ? null : Number(id) },
+    limit: limit ? Number(limit) : limit
+  })
+  if (!artistsByUser) {
+    return res.status(404).json({ message: 'Artists not found', data: null })
+  }
+  return res.status(200).json(artistsByUser);
+}
+
 // Post - Create Artist
 async function createArtist(req, res) {
   const body = req.body
@@ -32,7 +44,8 @@ async function createArtist(req, res) {
     name: body.name,
     country: body.country,
     ytchannel: body.ytchannel,
-    urlImage: body.urlImage
+    urlImage: body.urlImage,
+    userId: body.userId,
   })
     .then(async (artist) => {
       await artist.save();
@@ -93,6 +106,7 @@ module.exports = {
   createArtist,
   getArtistById,
   getAllArtists,
+  getAllArtistsByUserId,
   updateArtist,
   deleteArtist
 }

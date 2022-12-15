@@ -47,8 +47,9 @@ songs.belongsTo(artists)
 
 // Genres - Songs
 // genres.hasMany(songs)
-tops.belongsTo(genres)
+songs.belongsTo(genres)
 
+// Gentes, artist, songs - User
 genres.belongsTo(users)
 artists.belongsTo(users)
 songs.belongsTo(users)
