@@ -47,6 +47,11 @@ songs.belongsTo(artists)
 
 // Genres - Songs
 // genres.hasMany(songs)
-songs.belongsTo(genres)
+tops.belongsTo(genres)
+
+genres.belongsTo(users)
+artists.belongsTo(users)
+songs.belongsTo(users)
+
 
 module.exports = sequelize

@@ -17,6 +17,14 @@ const Genres = (sequelize) => sequelize.define('genres', {
             isUrl: true
         }
     },
+    userId: {
+        type: DataTypes.INTEGER,
+        references: {
+            model: 'users',
+            key: 'id'
+        },
+        onDelete: 'CASCADE'
+    },
     createdAt: DataTypes.DATE,
     updatedAt: DataTypes.DATE
 }, {

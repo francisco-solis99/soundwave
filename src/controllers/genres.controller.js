@@ -25,12 +25,26 @@ async function getGenreById(req, res) {
   return res.status(200).json(genre)
 }
 
+async function getAllGenresByUserId(req, res) {
+  const { limit, id } = req.query;
+  console.log(typeof id);
+  const genresByUser = await sequelize.models.genres.findAll({
+    where: { userId: id === 'null' ? null : Number(id) },
+    limit: limit ? Number(limit) : limit
+  })
+  if (!genresByUser) {
+    return res.status(404).json({ message: 'Genres not found', data: null })
+  }
+  return res.status(200).json(genresByUser);
+}
+
 // Post - Create Genre
 async function createGenre(req, res) {
   const { body } = req
   await sequelize.models.genres.create({
     name: body.name,
-    urlImage: body.urlImage
+    urlImage: body.urlImage,
+    userId: body.userId,
   })
     .then(async (genre) => {
       await genre.save()
@@ -57,7 +71,7 @@ async function updateGenre(req, res) {
   await genre.update({
     name: body.name,
     genreId: body.genreId,
-    urlImage: body.urlImage
+    urlImage: body.urlImage,
   })
     .then(async (updateGenre) => {
       await updateGenre.save()
@@ -88,6 +102,7 @@ async function deleteGenre(req, res) {
 module.exports = {
   getAllGenres,
   getGenreById,
+  getAllGenresByUserId,
   createGenre,
   updateGenre,
   deleteGenre

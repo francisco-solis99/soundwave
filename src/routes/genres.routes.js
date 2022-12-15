@@ -2,6 +2,7 @@ const router = require('express').Router()
 const {
     getAllGenres,
     getGenreById,
+    getAllGenresByUserId,
     createGenre,
     updateGenre,
     deleteGenre
@@ -9,8 +10,9 @@ const {
 const authenticate = require('../middlewares/authentication')
 const permission = require('../middlewares/permission')
 
-router.get('/', getAllGenres)
+// router.get('/', getAllGenres)
 router.get('/:id', getGenreById)
+router.get('/', getAllGenresByUserId)
 router.post('/', authenticate, permission(1, 2), createGenre)
 router.patch('/:id', authenticate, permission(1, 2), updateGenre)
 router.delete('/:id', authenticate, permission(1, 2), deleteGenre)

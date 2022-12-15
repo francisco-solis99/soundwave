@@ -14,6 +14,14 @@ module.exports = {
         allowNull: false,
         unique: true
       },
+      userId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'users',
+          key: 'id'
+        },
+        onDelete: 'CASCADE'
+      },
       urlImage: {
         type: Sequelize.STRING,
         validate: {
